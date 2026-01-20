@@ -1,0 +1,9 @@
+langchain
+langchain-community
+langgraph
+crewai
+aiohttp
+python-dotenv
+pandas
+numpy
+pytest
