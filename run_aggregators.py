@@ -1,12 +1,8 @@
 import json
-from pathlib import Path
 from datetime import datetime
 
-from ubuntu_llmops.aggregators import logs, system, processes, services, network
-
-PROJECT_ROOT = Path(__file__).resolve().parent
-AGGREGATES_DIR = PROJECT_ROOT / "data" / "aggregates"
-AGGREGATES_DIR.mkdir(parents=True, exist_ok=True)
+from aggregators import logs, system, processes, services, network
+from paths import AGGREGATES_DIR
 
 def run_all():
     summary = {
@@ -35,11 +31,10 @@ def run_all():
     summary["aggregators_run"].append("network")
     summary["output_files"].append("network/network.json")
 
-    metadata_file = AGGREGATES_DIR / "metadata.json"
-    with metadata_file.open("w") as f:
+    with (AGGREGATES_DIR / "metadata.json").open("w") as f:
         json.dump(summary, f, indent=2)
 
-    print(f"Aggregates complete. Metadata written to {metadata_file}")
+    print("Aggregates complete")
 
 if __name__ == "__main__":
     run_all()
